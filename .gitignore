@@ -15,3 +15,5 @@ temp/
 testrun/*
 .~lock*
 *.pkl
+.images
+interactive_console_output.xml
