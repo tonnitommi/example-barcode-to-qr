@@ -1,5 +1,4 @@
 *** Settings ***
-Documentation       Template robot main suite.
 Library             RPA.Browser.Selenium
 Library             converter
 Library             RPA.PDF
@@ -31,10 +30,17 @@ Extract site data
 
 *** Keywords ***
 Barcodes to QR
+    [Documentation]    Reads the EAN-13 code from a fixed locator location defined by the
+    ...                variable LOCATOR_BARCODE and converts it to a QR code using qrcode
+    ...                library wrapped a in Python method. The QR code is then stored locally.
+    ...                Proposed improvements: read the entire data table first and find the row
+    ...                with EAN-13 anywhere from the table.
     ${EAN13}=  Get Text  ${LOCATOR_BARCODE}
     Create Qrcode    output/qr.png      ${EAN13}
 
 Get table data from a webpage
+    [Documentation]    Reads the table data from a fixed locator location defined by the
+    ...                variable LOCATOR_TABLE_ROWS and returns a list of lists.
     ${table_rows}=    Get WebElements    ${LOCATOR_TABLE_ROWS}
     ${rows}=    Create List
     FOR    ${row}    IN    @{table_rows}
